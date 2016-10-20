@@ -1,0 +1,23 @@
+<h1>SIG Products Web UI</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>SKU</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Last Updated Time</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{product.sku}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.description}}</td>
+      <td>{{product.lastUpdatedTimestamp}}</td>
+    </tr>
+  </tbody>
+  
+</table>
+
