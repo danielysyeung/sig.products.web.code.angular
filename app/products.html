@@ -1,5 +1,12 @@
 <h1>SIG Products Web UI</h1>
 
+<div *ngIf="product">
+  <h3>SKU: {{product.sku}}</h3>
+  <h3>Name: {{product.name}}</h3>
+  <h3>Description: {{product.description}}</h3>
+  <h3>Updated: {{product.lastUpdatedTimestamp}}</h3>
+</div>
+
 <table class="table">
   <thead>
     <tr>
@@ -11,11 +18,11 @@
   </thead>
   
   <tbody>
-    <tr *ngFor="let product of products">
-      <td>{{product.sku}}</td>
-      <td>{{product.name}}</td>
-      <td>{{product.description}}</td>
-      <td>{{product.lastUpdatedTimestamp}}</td>
+    <tr *ngFor="let p of productList">
+      <td>{{p.sku}}</td>
+      <td>{{p.name}}</td>
+      <td>{{p.description}}</td>
+      <td>{{p.lastUpdatedTimestamp}}</td>
     </tr>
   </tbody>
   

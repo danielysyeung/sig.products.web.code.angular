@@ -3,5 +3,5 @@ export class Product {
     public sku: string,
     public name: string,
     public description: string,
-    public lastUpdatedTimestamp: Date) { }
+    public lastUpdatedTimestamp: Date) { } 
 }
