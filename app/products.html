@@ -10,21 +10,24 @@
 <table class="table">
   <thead>
     <tr>
-      <th>SKU</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Last Updated Time</th>
+      <th><h3>SKU</h3></th>
+      <th><h3>Name</h3></th>
+      <th><h3>Description</h3></th>
+      <th><h3>UpdatedAt</h3></th>
     </tr>
   </thead>
   
   <tbody>
     <tr *ngFor="let p of productList">
-      <td>{{p.sku}}</td>
-      <td>{{p.name}}</td>
-      <td>{{p.description}}</td>
-      <td>{{p.lastUpdatedTimestamp}}</td>
+      <td><h3>{{p.sku}}</h3></td>
+      <td><h3>{{p.name}}</h3></td>
+      <td><h3>{{p.description}}</h3></td>
+      <td><h3>{{p.lastUpdatedTimestamp}}</h3></td>
     </tr>
   </tbody>
   
 </table>
+
+<h3>About UI: {{aboutUi}}</h3>
+<h3>About Service: {{aboutService}}</h3>
 

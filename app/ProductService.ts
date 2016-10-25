@@ -7,7 +7,10 @@ import { Product } from './Product';
 export class ProductService {
 
   private productsApiUrl = 'http://localhost:8081/products';  // URL to Products API (Nodejs)
+  private productsApiAboutUrl = 'http://localhost:8081/services/products/about';  // URL to About Products API (Nodejs)
+
   // private productsApiUrl = 'http://localhost:8080/products';  // URL to Products API (Java)
+  // private productsApiAboutUrl = 'http://localhost:8080/services/products/about';  // URL to About Products API (Java)
 
   constructor(private http: Http) { }
 
@@ -26,7 +29,7 @@ export class ProductService {
   createOne(product: Product): Observable<Product> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(product);    
+    let body = JSON.stringify(product);
     return this.http.post(this.productsApiUrl, body, options)
       .catch(this.handleError);
   }
@@ -34,13 +37,19 @@ export class ProductService {
   updateOne(sku: string, product: Product): Observable<Product> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(product);    
+    let body = JSON.stringify(product);
     return this.http.put(this.productsApiUrl + '/' + sku, body, options)
       .catch(this.handleError);
   }
 
   deleteOne(sku: string): Observable<Product> {
     return this.http.delete(this.productsApiUrl + '/' + sku)
+      .catch(this.handleError);
+  }
+
+  about(): Observable<string> {
+    return this.http.get(this.productsApiAboutUrl)
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 

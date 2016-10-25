@@ -10,13 +10,18 @@ import { Product } from './Product';
 
 export class ProductComponent implements OnInit {
 
-  errorMessage: string;
   productList: Product[];
   product: Product;
+  errorMessage: string;
+  aboutUi: string;
+  aboutService: string;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
+
+    this.aboutProductsApi();
+
     // this.getAllProducts();
     // this.getOneProduct('P10001');
     
@@ -31,7 +36,7 @@ export class ProductComponent implements OnInit {
   }
 
   getAllProducts() {
-    this.productService.getAll().subscribe(p => this.productList = p, e => this.errorMessage = <any>e);
+    this.productService.getAll().subscribe(pl => this.productList = pl, e => this.errorMessage = <any>e);
   }
 
   getOneProduct(sku: string) {
@@ -48,6 +53,11 @@ export class ProductComponent implements OnInit {
 
   deleteOneProduct(sku: string) {    
     this.productService.deleteOne(sku).subscribe(p => this.product = p, e => this.errorMessage = <any>e);
+  }
+
+  aboutProductsApi() {
+    this.aboutUi = '{"Name":"ProductsUI","Version":"0.1","Framework":"Angular2"}';
+    this.productService.about().subscribe(r => this.aboutService = JSON.stringify(r), e => this.errorMessage = <any>e);
   }
 
 }
