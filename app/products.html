@@ -1,33 +1,56 @@
-<h1>SIG Products Web UI</h1>
+<h2>SIG Products Web UI</h2>
 
-<div *ngIf="product">
-  <h3>SKU: {{product.sku}}</h3>
-  <h3>Name: {{product.name}}</h3>
-  <h3>Description: {{product.description}}</h3>
-  <h3>Updated: {{product.lastUpdatedTimestamp}}</h3>
+<div *ngIf="errorMessage">
+  <hr/>
+  <h2>Error Message</h2>
+  <div>{{errorMessage}}</div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th><h3>SKU</h3></th>
-      <th><h3>Name</h3></th>
-      <th><h3>Description</h3></th>
-      <th><h3>UpdatedAt</h3></th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <tr *ngFor="let p of productList">
-      <td><h3>{{p.sku}}</h3></td>
-      <td><h3>{{p.name}}</h3></td>
-      <td><h3>{{p.description}}</h3></td>
-      <td><h3>{{p.lastUpdatedTimestamp}}</h3></td>
-    </tr>
-  </tbody>
-  
-</table>
+<div>
+  <hr/>
+  <h2>Add New Product <button (click)="add(s.value, n.value, d.value); s.value=''; n.value=''; d.value='';">Add</button></h2>
+	<div><label>SKU: </label><input #s/></div>
+	<div><label>Name: </label><input #n/></div>
+	<div><label>Description: </label><input #d/></div>
+</div>
 
-<h3>About UI: {{aboutUi}}</h3>
-<h3>About Service: {{aboutService}}</h3>
+<div *ngIf="product">
+	<hr/>
+	<h2>Product Details <button (click)="update(product)">Update</button> <button (click)="delete(product)">Delete</button></h2>
+	<div><label>SKU: </label>{{product.sku}}</div>
+	<div><label>Name: </label><input [(ngModel)]="product.name" placeholder="name" /></div>
+	<div><label>Description: </label><input [(ngModel)]="product.description" placeholder="description" /></div>
+	<div><label>Updated: </label>{{product.lastUpdatedTimestamp}}</div>
+</div>
 
+<div>
+  <hr/>
+	<h2>Product List <button (click)="refresh()">Refresh</button></h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th><h3>SKU</h3></th>
+				<th><h3>Name</h3></th>
+				<th><h3>Description</h3></th>
+				<th><h3>UpdatedAt</h3></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let p of productList" (click)="select(p)">
+				<td><h3>{{p.sku}}</h3></td>
+				<td><h3>{{p.name}}</h3></td>
+				<td><h3>{{p.description}}</h3></td>
+				<td><h3>{{p.lastUpdatedTimestamp}}</h3></td>
+				<td><button (click)="delete(p)">X</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div>
+  <hr/>
+	<h2>About</h2>
+	<div>UI: {{aboutUi}}</div>
+	<div>Service: {{aboutService}}</div>
+</div>

@@ -19,45 +19,74 @@ export class ProductComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-
+    this.errorMessage = null;
+    this.product = null;
     this.aboutProductsApi();
-
-    // this.getAllProducts();
-    // this.getOneProduct('P10001');
-    
-    let product1 = new Product('P20001', 'P20001 Name', 'P20001 Description', null);
-    // this.createOneProduct(product1);
-
-    let product2 = new Product('P20001', 'P20001 Name Updated', 'P20001 Description Updated', null);
-    this.updateOneProduct('P20001', product2);
-    
-    // this.deleteOneProduct('P99999');
-
+    this.getAllProducts();
   }
 
-  getAllProducts() {
-    this.productService.getAll().subscribe(pl => this.productList = pl, e => this.errorMessage = <any>e);
+  private getAllProducts() {
+    this.productService.getAll().subscribe(pl => {
+      this.productList = pl;
+    }, e => this.errorMessage = <any>e);
   }
 
-  getOneProduct(sku: string) {
-    this.productService.getOne(sku).subscribe(p => this.product = p, e => this.errorMessage = <any>e);
+  private getOneProduct(sku: string) {
+    this.productService.getOne(sku).subscribe(p => {
+      this.product = p;
+    }, e => this.errorMessage = <any>e);
   }
 
-  createOneProduct(product: Product) {        
-    this.productService.createOne(product).subscribe(p => this.product = p, e => this.errorMessage = <any>e);
+  private createOneProduct(product: Product) {
+    this.productService.createOne(product).subscribe(p => {
+      this.errorMessage = null;
+      this.product = null;
+      this.getAllProducts();
+    }, e => this.errorMessage = <any>e);
   }
 
-  updateOneProduct(sku: string, product: Product) {
-    this.productService.updateOne(sku, product).subscribe(p => this.product = p, e => this.errorMessage = <any>e);
+  private updateOneProduct(sku: string, product: Product) {
+    this.productService.updateOne(sku, product).subscribe(p => {
+      this.errorMessage = null;
+      this.getAllProducts();
+    }, e => this.errorMessage = <any>e);
   }
 
-  deleteOneProduct(sku: string) {    
-    this.productService.deleteOne(sku).subscribe(p => this.product = p, e => this.errorMessage = <any>e);
+  private deleteOneProduct(sku: string) {
+    this.productService.deleteOne(sku).subscribe(p => {
+      this.errorMessage = null;
+      this.product = null;
+      this.getAllProducts();
+    }, e => this.errorMessage = <any>e);
   }
 
-  aboutProductsApi() {
+  private aboutProductsApi() {
     this.aboutUi = '{"Name":"ProductsUI","Version":"0.1","Framework":"Angular2"}';
-    this.productService.about().subscribe(r => this.aboutService = JSON.stringify(r), e => this.errorMessage = <any>e);
+    this.productService.about().subscribe(r => {
+      this.aboutService = JSON.stringify(r);
+    }, e => this.errorMessage = <any>e);
+  }
+
+  select(p: Product): void {
+    this.errorMessage = null;
+    this.product = p;
+  }
+
+  refresh(): void {
+    this.getAllProducts();
+  }
+
+  add(sku: string, name: string, description: string): void {
+    let p = new Product(sku, name, description, null);
+    this.createOneProduct(p);
+  }
+
+  update(p: Product): void {
+    this.updateOneProduct(p.sku, p);
+  }
+
+  delete(p: Product): void {
+    this.deleteOneProduct(p.sku);
   }
 
 }
