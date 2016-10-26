@@ -37,11 +37,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let p of productList" (click)="select(p)">
-				<td><h3>{{p.sku}}</h3></td>
-				<td><h3>{{p.name}}</h3></td>
-				<td><h3>{{p.description}}</h3></td>
-				<td><h3>{{p.lastUpdatedTimestamp}}</h3></td>
+			<tr *ngFor="let p of productList">
+				<td (click)="select(p)"><h3>{{p.sku}}</h3></td>
+				<td (click)="select(p)"><h3>{{p.name}}</h3></td>
+				<td (click)="select(p)"><h3>{{p.description}}</h3></td>
+				<td (click)="select(p)"><h3>{{p.lastUpdatedTimestamp}}</h3></td>
 				<td><button (click)="delete(p)">X</button></td>
 			</tr>
 		</tbody>

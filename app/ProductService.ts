@@ -7,10 +7,10 @@ import { Product } from './Product';
 export class ProductService {
 
   private productsApiUrl = 'http://localhost:8081/products';  // URL to Products API (Nodejs)
-  private productsApiAboutUrl = 'http://localhost:8081/services/products/about';  // URL to About Products API (Nodejs)
+  private productsApiAboutUrl = 'http://localhost:8081/products/service/about';  // URL to About Products API (Nodejs)
 
   // private productsApiUrl = 'http://localhost:8080/products';  // URL to Products API (Java)
-  // private productsApiAboutUrl = 'http://localhost:8080/services/products/about';  // URL to About Products API (Java)
+  // private productsApiAboutUrl = 'http://localhost:8080/products/service/about';  // URL to About Products API (Java)
 
   constructor(private http: Http) { }
 

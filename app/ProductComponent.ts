@@ -39,23 +39,18 @@ export class ProductComponent implements OnInit {
 
   private createOneProduct(product: Product) {
     this.productService.createOne(product).subscribe(p => {
-      this.errorMessage = null;
-      this.product = null;
       this.getAllProducts();
     }, e => this.errorMessage = <any>e);
   }
 
   private updateOneProduct(sku: string, product: Product) {
     this.productService.updateOne(sku, product).subscribe(p => {
-      this.errorMessage = null;
       this.getAllProducts();
     }, e => this.errorMessage = <any>e);
   }
 
   private deleteOneProduct(sku: string) {
     this.productService.deleteOne(sku).subscribe(p => {
-      this.errorMessage = null;
-      this.product = null;
       this.getAllProducts();
     }, e => this.errorMessage = <any>e);
   }
@@ -73,19 +68,26 @@ export class ProductComponent implements OnInit {
   }
 
   refresh(): void {
+    this.errorMessage = null;
+    this.product = null;
     this.getAllProducts();
   }
 
   add(sku: string, name: string, description: string): void {
+    this.errorMessage = null;
+    this.product = null;
     let p = new Product(sku, name, description, null);
     this.createOneProduct(p);
   }
 
   update(p: Product): void {
+    this.errorMessage = null;
     this.updateOneProduct(p.sku, p);
   }
 
   delete(p: Product): void {
+    this.errorMessage = null;
+    this.product = null;
     this.deleteOneProduct(p.sku);
   }
 
