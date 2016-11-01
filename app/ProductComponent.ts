@@ -11,7 +11,7 @@ import { Product } from './Product';
 export class ProductComponent implements OnInit {
 
   productList: Product[];
-  product: Product;
+  selectedProduct: Product;
   errorMessage: string;
   aboutUi: string;
   aboutService: string;
@@ -20,10 +20,12 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.errorMessage = null;
-    this.product = null;
+    this.selectedProduct = null;
     this.aboutProductsApi();
     this.getAllProducts();
   }
+
+  // Internal functions
 
   private getAllProducts() {
     this.productService.getAll().subscribe(pl => {
@@ -33,7 +35,7 @@ export class ProductComponent implements OnInit {
 
   private getOneProduct(sku: string) {
     this.productService.getOne(sku).subscribe(p => {
-      this.product = p;
+      this.selectedProduct = p;
     }, e => this.errorMessage = <any>e);
   }
 
@@ -62,20 +64,22 @@ export class ProductComponent implements OnInit {
     }, e => this.errorMessage = <any>e);
   }
 
+  // Functions for view
+
   select(p: Product): void {
     this.errorMessage = null;
-    this.product = p;
+    this.selectedProduct = p;
   }
 
   refresh(): void {
     this.errorMessage = null;
-    this.product = null;
+    this.selectedProduct = null;
     this.getAllProducts();
   }
 
   add(sku: string, name: string, description: string): void {
     this.errorMessage = null;
-    this.product = null;
+    this.selectedProduct = null;
     let p = new Product(sku, name, description, null);
     this.createOneProduct(p);
   }
@@ -87,7 +91,7 @@ export class ProductComponent implements OnInit {
 
   delete(p: Product): void {
     this.errorMessage = null;
-    this.product = null;
+    this.selectedProduct = null;
     this.deleteOneProduct(p.sku);
   }
 

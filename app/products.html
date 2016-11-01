@@ -14,13 +14,13 @@
 	<div><label>Description: </label><input #d/></div>
 </div>
 
-<div *ngIf="product">
+<div *ngIf="selectedProduct">
 	<hr/>
-	<h2>Product Details <button (click)="update(product)">Update</button> <button (click)="delete(product)">Delete</button></h2>
-	<div><label>SKU: </label>{{product.sku}}</div>
-	<div><label>Name: </label><input [(ngModel)]="product.name" placeholder="name" /></div>
-	<div><label>Description: </label><input [(ngModel)]="product.description" placeholder="description" /></div>
-	<div><label>Updated: </label>{{product.lastUpdatedTimestamp}}</div>
+	<h2>Product Details <button (click)="update(selectedProduct)">Update</button> <button (click)="delete(selectedProduct)">Delete</button></h2>
+	<div><label>SKU: </label>{{selectedProduct.sku}}</div>
+	<div><label>Name: </label><input [(ngModel)]="selectedProduct.name" placeholder="name" /></div>
+	<div><label>Description: </label><input [(ngModel)]="selectedProduct.description" placeholder="description" /></div>
+	<div><label>Updated: </label>{{selectedProduct.lastUpdatedTimestamp}}</div>
 </div>
 
 <div>

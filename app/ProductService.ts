@@ -15,12 +15,14 @@ export class ProductService {
   constructor(private http: Http) { }
 
   getAll(): Observable<Product[]> {
+    // REST call
     return this.http.get(this.productsApiUrl)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   getOne(sku: string): Observable<Product> {
+    // REST call
     return this.http.get(this.productsApiUrl + '/' + sku)
       .map((res: Response) => res.json())
       .catch(this.handleError);
@@ -30,6 +32,7 @@ export class ProductService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(product);
+    // REST call
     return this.http.post(this.productsApiUrl, body, options)
       .catch(this.handleError);
   }
@@ -38,23 +41,26 @@ export class ProductService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(product);
+    // REST call
     return this.http.put(this.productsApiUrl + '/' + sku, body, options)
       .catch(this.handleError);
   }
 
   deleteOne(sku: string): Observable<Product> {
+    // REST call
     return this.http.delete(this.productsApiUrl + '/' + sku)
       .catch(this.handleError);
   }
 
   about(): Observable<string> {
+    // REST call
     return this.http.get(this.productsApiAboutUrl)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   private handleError(error: any) {
-    let errorMessage = error.message ? error.message : (error.status ? (error.status + ': ' + error.statusText) : 'Server Error');
+    let errorMessage = error.status ? (error.status + ': ' + error.statusText) : 'Server Error';
     console.error(errorMessage);
     return Observable.throw(errorMessage);
   }
