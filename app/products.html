@@ -1,27 +1,50 @@
 <h2>SIG Products Web UI</h2>
 
+<div>
+	<div>UI Framework: {{aboutUi}}</div>
+	<div>Service Provider: {{aboutService}}</div>
+	<label>Select Service Provider: </label>
+	<select name="serviceProvider" [(ngModel)]="serviceProvider" (ngModelChange)="setServiceProvider();">
+    <option value="N">Node.js</option>
+    <option value="J">Java</option>
+  </select>
+</div>
+
 <div *ngIf="errorMessage">
   <hr/>
   <h2>Error Message</h2>
   <div>{{errorMessage}}</div>
 </div>
 
+<hr/>
+<table>
+	<tr>
+		<td>
+
 <div>
-  <hr/>
-  <h2>Add New Product <button (click)="add(s.value, n.value, d.value); s.value=''; n.value=''; d.value='';">Add</button></h2>
-	<div><label>SKU: </label><input #s/></div>
-	<div><label>Name: </label><input #n/></div>
-	<div><label>Description: </label><input #d/></div>
+  <h2>Add New Product <button (click)="add(product.sku, product.name, product.description); product.sku=''; product.name=''; product.description='';">Add</button></h2>
+	<div><label>SKU: </label><input [(ngModel)]="product.sku" placeholder="sku"/></div>
+	<div><label>Name: </label><input [(ngModel)]="product.name" placeholder="name"/></div>
+	<div><label>Description: </label><input [(ngModel)]="product.description" placeholder="description"/></div>
+	<div><label>Updated Timestamp: </label>system generated</div>
 </div>
 
+    </td>
+		<td>
+		</td>
+		<td>
+
 <div *ngIf="selectedProduct">
-	<hr/>
 	<h2>Product Details <button (click)="update(selectedProduct)">Update</button> <button (click)="delete(selectedProduct)">Delete</button></h2>
 	<div><label>SKU: </label>{{selectedProduct.sku}}</div>
 	<div><label>Name: </label><input [(ngModel)]="selectedProduct.name" placeholder="name" /></div>
 	<div><label>Description: </label><input [(ngModel)]="selectedProduct.description" placeholder="description" /></div>
-	<div><label>Updated: </label>{{selectedProduct.lastUpdatedTimestamp}}</div>
+	<div><label>Updated Timestamp: </label>{{selectedProduct.lastUpdatedTimestamp}}</div>
 </div>
+
+    </td>
+	</tr>
+</table>
 
 <div>
   <hr/>
@@ -32,7 +55,7 @@
 				<th><h3>SKU</h3></th>
 				<th><h3>Name</h3></th>
 				<th><h3>Description</h3></th>
-				<th><h3>UpdatedAt</h3></th>
+				<th><h3>Updated Timestamp</h3></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -46,11 +69,4 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
-
-<div>
-  <hr/>
-	<h2>About</h2>
-	<div>UI: {{aboutUi}}</div>
-	<div>Service: {{aboutService}}</div>
 </div>

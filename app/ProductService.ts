@@ -6,24 +6,26 @@ import { Product } from './Product';
 @Injectable()
 export class ProductService {
 
-  private productsApiUrl = 'http://localhost:8081/products';  // URL to Products API (Nodejs)
-  private productsApiAboutUrl = 'http://localhost:8081/products/service/about';  // URL to About Products API (Nodejs)
+  serviceProvider = 'N';
+  
+  private productsApiUrlNodejs = 'http://localhost:8081/products';  // URL to Products API (Nodejs)
+  private productsApiAboutUrlNodejs = 'http://localhost:8081/products/service/about';  // URL to About Products API (Nodejs)
 
-  // private productsApiUrl = 'http://localhost:8080/products';  // URL to Products API (Java)
-  // private productsApiAboutUrl = 'http://localhost:8080/products/service/about';  // URL to About Products API (Java)
+  private productsApiUrlJava = 'http://localhost:8080/products';  // URL to Products API (Java)
+  private productsApiAboutUrlJava = 'http://localhost:8080/products/service/about';  // URL to About Products API (Java)
 
   constructor(private http: Http) { }
 
   getAll(): Observable<Product[]> {
     // REST call
-    return this.http.get(this.productsApiUrl)
+    return this.http.get(this.getProductsApiUrl())
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   getOne(sku: string): Observable<Product> {
     // REST call
-    return this.http.get(this.productsApiUrl + '/' + sku)
+    return this.http.get(this.getProductsApiUrl() + '/' + sku)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -33,7 +35,7 @@ export class ProductService {
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(product);
     // REST call
-    return this.http.post(this.productsApiUrl, body, options)
+    return this.http.post(this.getProductsApiUrl(), body, options)
       .catch(this.handleError);
   }
 
@@ -42,19 +44,19 @@ export class ProductService {
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(product);
     // REST call
-    return this.http.put(this.productsApiUrl + '/' + sku, body, options)
+    return this.http.put(this.getProductsApiUrl() + '/' + sku, body, options)
       .catch(this.handleError);
   }
 
   deleteOne(sku: string): Observable<Product> {
     // REST call
-    return this.http.delete(this.productsApiUrl + '/' + sku)
+    return this.http.delete(this.getProductsApiUrl() + '/' + sku)
       .catch(this.handleError);
   }
 
   about(): Observable<string> {
     // REST call
-    return this.http.get(this.productsApiAboutUrl)
+    return this.http.get(this.getProductsApiAboutUrl())
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -65,11 +67,22 @@ export class ProductService {
     return Observable.throw(errorMessage);
   }
 
-  getStatic() {
-    return [
-      { "sku": "P30001", "name": "Name30001", "description": "Desc30001", "lastUpdatedTimestamp": "2016-10-17T01:30:00.050Z" },
-      { "sku": "P30002", "name": "Name30002", "description": "Desc30002", "lastUpdatedTimestamp": "2016-10-18T01:30:00.050Z" },
-      { "sku": "P30003", "name": "Name30003", "description": "Desc30003", "lastUpdatedTimestamp": "2016-10-19T01:30:00.050Z" }
-    ];
+  getProductsApiUrl(): string {
+    if (this.serviceProvider == 'J') {
+      return this.productsApiUrlJava;
+    } 
+
+    // Default serviceProvider is Node.js.
+    return this.productsApiUrlNodejs;
   }
+
+  getProductsApiAboutUrl(): string {
+    if (this.serviceProvider == 'J') {
+      return this.productsApiAboutUrlJava;
+    } 
+
+    // Default serviceProvider is Node.js.
+    return this.productsApiAboutUrlNodejs;
+  }
+
 }

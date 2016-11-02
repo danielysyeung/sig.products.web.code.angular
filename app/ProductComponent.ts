@@ -10,7 +10,9 @@ import { Product } from './Product';
 
 export class ProductComponent implements OnInit {
 
+  serviceProvider = 'N';
   productList: Product[];
+  product: Product = new Product(null, null, null, null);
   selectedProduct: Product;
   errorMessage: string;
   aboutUi: string;
@@ -19,7 +21,9 @@ export class ProductComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.productService.serviceProvider = this.serviceProvider; 
     this.errorMessage = null;
+    this.product = new Product(null, null, null, null);
     this.selectedProduct = null;
     this.aboutProductsApi();
     this.getAllProducts();
@@ -73,6 +77,7 @@ export class ProductComponent implements OnInit {
 
   refresh(): void {
     this.errorMessage = null;
+    this.product = new Product(null, null, null, null);
     this.selectedProduct = null;
     this.getAllProducts();
   }
@@ -93,6 +98,10 @@ export class ProductComponent implements OnInit {
     this.errorMessage = null;
     this.selectedProduct = null;
     this.deleteOneProduct(p.sku);
+  }
+
+  setServiceProvider(): void {
+    this.ngOnInit();
   }
 
 }
